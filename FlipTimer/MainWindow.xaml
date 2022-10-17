@@ -5,8 +5,61 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlipTimer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="FlipTimer" Height="450" Width="800" 
+        Icon="/Resources/icon.png" WindowStyle="None" 
+        AllowsTransparency="True" ResizeMode="CanResizeWithGrip"
+        MaxHeight="{x:Static SystemParameters.MaximizedPrimaryScreenHeight}"
+        MaxWidth="{x:Static SystemParameters.MaximizedPrimaryScreenWidth}">
 
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="Black" Offset="0"/>
+            <GradientStop Color="#36393F" Offset="1"/>
+            <GradientStop Color="#FE1D1D1D" Offset="0"/>
+            <GradientStop Color="#FF1F1F1F" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+
+    <Grid>
+        <Grid.RowDefinitions >
+            <RowDefinition Height="32px"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40 px"/>
+            <ColumnDefinition Width="150 px"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Grid.ColumnSpan="3" 
+                Background="#FF1B1B1B" Padding="2 2 2 0"
+                MouseLeftButtonDown="Border_MouseLeftButtonDown">
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40 px"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Content="Flip Timer" Foreground="#FFD0D0D0" 
+                      FontWeight="SemiBold" FontSize="12"/>
+                <Image Height="20" Width="20" Grid.Column="0" Source="Resources/icon.png"/>
+
+                <StackPanel Grid.Column="2" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button Width="36" Height="30" Content="—" FontSize="16"
+                            Background="Transparent" BorderThickness="0"
+                            Foreground="#FFD0D0D0" Padding="0 0 0 1"
+                            Click="ButtonMinimize_Click"/>
+                    <Button Width="36" Height="30" Content="▢" FontSize="16"
+                            Background="Transparent" BorderThickness="0"
+                            Foreground="#FFD0D0D0"
+                            Click="ButtonMaximize_Click"/>
+                    <Button Width="36" Height="30" Content="✕" FontSize="16"
+                            Background="Transparent" BorderThickness="0"
+                            Foreground="#FFD0D0D0"
+                            Click="ButtonClose_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        
     </Grid>
 </Window>
