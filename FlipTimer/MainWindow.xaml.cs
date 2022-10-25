@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlipTimer.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,14 +18,12 @@ using System.Windows.Shell;
 
 namespace FlipTimer
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new TimerViewModel();
         }
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -34,25 +33,30 @@ namespace FlipTimer
                 this.DragMove();
         }
 
-        private void ButtonMinimize_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.MainWindow.WindowState = WindowState.Minimized;
-        }
-        private void ButtonMaximize_Click(object sender, RoutedEventArgs e)
-        {
-            MaximizeMainWindow();
-        }
-        private void ButtonClose_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
         private void MaximizeMainWindow()
         {
             if (Application.Current.MainWindow.WindowState != WindowState.Maximized)
                 Application.Current.MainWindow.WindowState = WindowState.Maximized;
             else
                 Application.Current.MainWindow.WindowState = WindowState.Normal;
+        }
+
+        private void CommandBinding_Executed_CloseWindow(object sender, ExecutedRoutedEventArgs e)
+        {
+            SystemCommands.CloseWindow(this);
+        }
+
+        private void CommandBinding_Executed_MaximizeWindow(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (Application.Current.MainWindow.WindowState != WindowState.Maximized)
+                SystemCommands.MaximizeWindow(this);
+            else
+                SystemCommands.RestoreWindow(this);
+        }
+
+        private void CommandBinding_Executed_MinimizeWindow(object sender, ExecutedRoutedEventArgs e)
+        {
+            SystemCommands.MinimizeWindow(this);
         }
     }
 }

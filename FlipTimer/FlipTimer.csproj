@@ -8,11 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\0.png" />
     <None Remove="Resources\256c.png" />
+    <None Remove="Resources\colon.png" />
+    <None Remove="Resources\frame.png" />
     <None Remove="Resources\icon.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\0.png" />
+    <Resource Include="Resources\colon.png" />
+    <Resource Include="Resources\frame.png" />
     <Resource Include="Resources\icon.png" />
   </ItemGroup>
 
@@ -29,6 +35,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="App.xaml" />
   </ItemGroup>
 
 </Project>

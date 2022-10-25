@@ -63,6 +63,36 @@ namespace FlipTimer.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
+        internal static byte[] _0 {
+            get {
+                object obj = ResourceManager.GetObject("0", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] colon {
+            get {
+                object obj = ResourceManager.GetObject("colon", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] frame {
+            get {
+                object obj = ResourceManager.GetObject("frame", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
         internal static byte[] icon {
             get {
                 object obj = ResourceManager.GetObject("icon", resourceCulture);
