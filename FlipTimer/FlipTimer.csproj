@@ -42,6 +42,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Syncfusion.SfInput.WPF" Version="20.3.0.50" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Include="App.xaml" />
   </ItemGroup>
 
