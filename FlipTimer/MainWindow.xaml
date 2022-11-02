@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:FlipTimer"
         xmlns:viewmodels="clr-namespace:FlipTimer.ViewModels"
         xmlns:views="clr-namespace:FlipTimer.Views"
+        xmlns:commands="clr-namespace:FlipTimer.Commands"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
         Title="FlipTimer" MinHeight="400" MinWidth="600" Height="400" Width="600"
         Icon="/Resources/icon.png" WindowStyle="None" 
@@ -38,9 +40,6 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <DataTemplate x:Name="timerViewTemplate" DataType="{x:Type viewmodels:SettingViewModel}">
-            <views:SettingView DataContext="{Binding}"/>
-        </DataTemplate>
     </Window.Resources>
 
     <Window.Background>
@@ -103,17 +102,21 @@
             </Grid.RowDefinitions>
             <Menu Height="20" Background="Transparent" Grid.Row="0"
                   Foreground="#FFD0D0D0" Padding="3 0 0 0" FontSize="12" VerticalAlignment="Top">
-                <MenuItem Header="New" />
+                <MenuItem x:Name="mi_New" Header="New" DataContext="{Binding CurrentViewModel}" 
+                          Command="{Binding NavigateCommand}"/>
                 <MenuItem Header="Reset"/>
             </Menu>
 
-            <ContentControl Grid.Row="1" Content="{Binding}">
-
-
+            <ContentControl x:Name="viewsContentControl" Grid.Row="1" Content="{Binding CurrentViewModel}">
+                <ContentControl.Resources>
+                    <DataTemplate x:Name="timerViewTemplate" DataType="{x:Type viewmodels:TimerViewModel}">
+                        <views:TimerView/>
+                    </DataTemplate>
+                    <DataTemplate x:Name="settingViewTemplate" DataType="{x:Type viewmodels:SettingViewModel}">
+                        <views:SettingView/>
+                    </DataTemplate>
+                </ContentControl.Resources>
             </ContentControl>
-
         </Grid>
-
     </Grid>
-
 </Window>

@@ -127,6 +127,7 @@
                      HorizontalAlignment="Left" MaxWidth="290">
                 <Grid Width="120" Height="39">
                     <Button Content="Cancel"
+                            Command="{Binding NavigateCommand}"
                 Style="{StaticResource BlackButton}"/>
                 </Grid>
             </Viewbox>

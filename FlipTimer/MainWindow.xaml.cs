@@ -1,4 +1,6 @@
-﻿using FlipTimer.ViewModels;
+﻿using FlipTimer.Commands;
+using FlipTimer.Stores;
+using FlipTimer.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +22,13 @@ namespace FlipTimer
 {
     public partial class MainWindow : Window
     {
+        NavigationStore _navigationStore;
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new SettingViewModel();
+            _navigationStore = new NavigationStore();
+            _navigationStore.CurrentViewModel = new TimerViewModel(_navigationStore);
+            DataContext = new MainViewModel(_navigationStore);
         }
 
         //--------------------------------------------------------------------------
