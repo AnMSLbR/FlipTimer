@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="FlipTimer.Views.ValuePanelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FlipTimer.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="125" d:DesignWidth="73">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>            
+    </Grid>
+</UserControl>

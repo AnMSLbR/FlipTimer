@@ -10,11 +10,13 @@ namespace FlipTimer.ViewModels
     internal class MainViewModel : ViewModelBase
     {
         private readonly NavigationStore _navigationStore;
+        
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
-        public MainViewModel(NavigationStore navigationStore)
+        public MainViewModel()
         {
-            _navigationStore = navigationStore;
+            _navigationStore = new NavigationStore();
+            _navigationStore.CurrentViewModel = new TimerViewModel(_navigationStore);
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
         }
 

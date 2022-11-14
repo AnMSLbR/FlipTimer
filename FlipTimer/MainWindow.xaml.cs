@@ -22,13 +22,13 @@ namespace FlipTimer
 {
     public partial class MainWindow : Window
     {
-        NavigationStore _navigationStore;
+        //NavigationStore _navigationStore;
         public MainWindow()
         {
             InitializeComponent();
-            _navigationStore = new NavigationStore();
-            _navigationStore.CurrentViewModel = new TimerViewModel(_navigationStore);
-            DataContext = new MainViewModel(_navigationStore);
+            //_navigationStore = new NavigationStore();
+            //_navigationStore.CurrentViewModel = new TimerViewModel(_navigationStore);
+            //DataContext = new MainViewModel(_navigationStore);
         }
 
         //--------------------------------------------------------------------------

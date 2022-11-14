@@ -1,5 +1,4 @@
-﻿using FlipTimer.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,14 +16,13 @@ using System.Windows.Shapes;
 namespace FlipTimer.Views
 {
     /// <summary>
-    /// Логика взаимодействия для SettingView.xaml
+    /// Логика взаимодействия для ValuePanelView.xaml
     /// </summary>
-    public partial class SettingView : UserControl
+    public partial class ValuePanelView : UserControl
     {
-        public SettingView()
+        public ValuePanelView()
         {
             InitializeComponent();
-            //DataContext = new TimeSpanViewModel();
         }
     }
 }

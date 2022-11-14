@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FlipTimer.Stores;
+using FlipTimer.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +15,10 @@ namespace FlipTimer
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            new MainWindow() { DataContext = new MainViewModel() }.Show();
+        }
     }
 }
