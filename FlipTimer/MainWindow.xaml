@@ -8,7 +8,6 @@
         xmlns:views="clr-namespace:FlipTimer.Views"
         xmlns:commands="clr-namespace:FlipTimer.Commands"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
-        d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
         Title="FlipTimer" MinHeight="400" MinWidth="600" Height="400" Width="600"
         Icon="/Resources/icon.png" WindowStyle="None" 
