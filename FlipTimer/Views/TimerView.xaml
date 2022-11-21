@@ -44,8 +44,10 @@
                 <RowDefinition Height="125*"/>
                 <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
-            <Image RenderOptions.BitmapScalingMode="HighQuality" Grid.Column="1" Grid.Row="1" 
-                   Source="/Resources/0.png" Stretch="Uniform" />
+            <local:FlipValueView Grid.Column="1" Grid.Row="1"
+                                 FrontImage="{Binding FrontImage}"
+                                 BackImage="{Binding BackImage}"/>
+
         </Grid>
         <Grid Grid.Column="3" Grid.Row="1">
             <Grid.ColumnDefinitions>

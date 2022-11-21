@@ -6,7 +6,6 @@
     xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:viewModels="clr-namespace:FlipTimer.ViewModels" 
-    d:DataContext="{d:DesignInstance Type=viewModels:SettingViewModel}"
     x:Class="FlipTimer.Views.SettingView"
     mc:Ignorable="d" 
     d:DesignHeight="348" d:DesignWidth="600"

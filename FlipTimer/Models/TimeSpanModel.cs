@@ -39,6 +39,16 @@ namespace FlipTimer.Models
             }
         }
 
+        public TimeSpan TotalTimeSpan
+        {
+            get => _totalTimeSpan;
+            set
+            {
+                _totalTimeSpan = value;
+                OnPropertyChanged("TotalTimeSpan");
+            }
+        }
+
         public DateTime StartDate
         {
             get => _startDate;
@@ -61,18 +71,23 @@ namespace FlipTimer.Models
         public TimeSpanModel()
         {
             timer = new TimerService();
+            timer.TimeSpanChanged += Timer_TimeSpanChangedEventHandler;
         }
 
         public void StartTimer()
         {
-            _totalTimeSpan = CalculateTotalTimeSpan(Days, Hours);
-            if (_totalTimeSpan != TimeSpan.Zero)
-                timer.Start(_totalTimeSpan);
+            TotalTimeSpan = CalculateTotalTimeSpan(Days, Hours);
+            if (TotalTimeSpan != TimeSpan.Zero)
+                timer.Start(TotalTimeSpan);
         }
 
         private TimeSpan CalculateTotalTimeSpan(TimeSpan days, TimeSpan hours)
         {
             return days + hours;
+        }
+        private void Timer_TimeSpanChangedEventHandler(object? sender, TimeSpan timeSpan)
+        {
+            TotalTimeSpan = timeSpan;
         }
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")
