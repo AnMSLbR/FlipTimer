@@ -20,25 +20,23 @@ namespace FlipTimer.Views
     public partial class FlipValueView : UserControl
     {
 
-        public static readonly DependencyProperty FrontImageProperty = DependencyProperty.Register("FrontImage", typeof(Image), typeof(FlipValueView));
-        public static readonly DependencyProperty BackImageProperty = DependencyProperty.Register("BackImage", typeof(Image), typeof(FlipValueView));
+        public static readonly DependencyProperty FrontImageSourceProperty = DependencyProperty.Register("FrontImageSource", typeof(ImageSource), typeof(FlipValueView));
+        public static readonly DependencyProperty BackImageSourceProperty = DependencyProperty.Register("BackImageSource", typeof(ImageSource), typeof(FlipValueView));
 
-        DependencyPropertyDescriptor FrontImagePropertyDescriptor = DependencyPropertyDescriptor.FromProperty(FrontImageProperty, typeof(FlipValueView));
-        DependencyPropertyDescriptor BackImagePropertyDescriptor = DependencyPropertyDescriptor.FromProperty(BackImageProperty, typeof(FlipValueView));
+        DependencyPropertyDescriptor FrontImageSourcePropertyDescriptor = DependencyPropertyDescriptor.FromProperty(FrontImageSourceProperty, typeof(FlipValueView));
+        DependencyPropertyDescriptor BackImageSourcePropertyDescriptor = DependencyPropertyDescriptor.FromProperty(BackImageSourceProperty, typeof(FlipValueView));
 
-        public Image FrontImage
+        public ImageSource FrontImageSource
         {
-            get { return (Image)GetValue(FrontImageProperty); }
-            set { SetValue(FrontImageProperty, value); }
+            get { return (ImageSource)GetValue(FrontImageSourceProperty); }
+            set { SetValue(FrontImageSourceProperty, value); }
         }
 
-        public Image BackImage
+        public ImageSource BackImageSource
         {
-            get { return (Image)GetValue(BackImageProperty); }
-            set { SetValue(BackImageProperty, value); }
+            get { return (ImageSource)GetValue(BackImageSourceProperty); }
+            set { SetValue(BackImageSourceProperty, value); }
         }
-
-        private bool flipFlag = true;
 
         DoubleAnimation outAnimation = null;
         DoubleAnimation inAnimation = null;
@@ -46,60 +44,52 @@ namespace FlipTimer.Views
         public FlipValueView()
         {
             InitializeComponent();
-
-            FrontImagePropertyDescriptor?.AddValueChanged(this, delegate
+            
+            FrontImageSourcePropertyDescriptor?.AddValueChanged(this, delegate
             {
-                SetFrontImage(FrontImage);
+                    SetFrontImageSource(FrontImageSource);
             });
 
-            BackImagePropertyDescriptor?.AddValueChanged(this, delegate
+            BackImageSourcePropertyDescriptor?.AddValueChanged(this, delegate
             {
-                SetBackImage(BackImage);
-                Flip();
+                SetBackImageSource(BackImageSource);
+                FlipElement(frontBorder, backBorder);
             });
 
-            backSide.RenderTransform = new ScaleTransform(1, 0);
-            outAnimation = new DoubleAnimation(1, 0, TimeSpan.FromMilliseconds(500));
-            inAnimation = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(500));
-            inAnimation.BeginTime = TimeSpan.FromMilliseconds(500);
+            backBorder.RenderTransform = new ScaleTransform(1, 0);
+            outAnimation = new DoubleAnimation(1, 0, TimeSpan.FromMilliseconds(480));
+            inAnimation = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(480));
+            inAnimation.BeginTime = TimeSpan.FromMilliseconds(480);
         }
 
-        public void SetFrontImage(UIElement frontImage)
+        public void SetFrontImageSource(ImageSource frontImageSouce)
         {
-            frontSide.Child = frontImage;
+            backImage.Source = null;
+            frontImage.Source = frontImageSouce;
         }
 
-        public void SetBackImage(UIElement backImage)
+        public void SetBackImageSource(ImageSource backImageSource)
         {
-            backSide.Child = backImage;
+            backImage.Source = backImageSource;
         }
 
-        private void FlipImage(UIElement frontImage, UIElement backImage)
+        private void FlipElement(UIElement front, UIElement back)
         {
-            if ((frontImage == null) || (backImage == null)) return;
+            if ((front == null) || (back == null)) return;
 
             Storyboard sbFlip = new Storyboard();
             Storyboard.SetTargetProperty(sbFlip, new PropertyPath("(UIElement.RenderTransform).(ScaleTransform.ScaleY)"));
 
-            frontImage.RenderTransform = new ScaleTransform(1, 1);
-            backImage.RenderTransform = new ScaleTransform(1, 0);
+            front.RenderTransform = new ScaleTransform(1, 1);
+            back.RenderTransform = new ScaleTransform(1, 0);
 
-            Storyboard.SetTargetName(outAnimation, (frontImage as FrameworkElement).Name);
-            Storyboard.SetTargetName(inAnimation, (backImage as FrameworkElement).Name);
+            Storyboard.SetTargetName(outAnimation, (front as FrameworkElement).Name);
+            Storyboard.SetTargetName(inAnimation, (back as FrameworkElement).Name);
 
             sbFlip.Children.Add(outAnimation);
             sbFlip.Children.Add(inAnimation);
 
             sbFlip.Begin(this);
-        }
-
-        public void Flip()
-        {
-            if (!flipFlag)
-                FlipImage(backSide, frontSide);
-            else
-                FlipImage(frontSide, backSide);
-            flipFlag = !flipFlag;
         }
 
     }

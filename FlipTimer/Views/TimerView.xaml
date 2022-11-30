@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:FlipTimer.Views"
-             mc:Ignorable="d" 
+             xmlns:local="clr-namespace:FlipTimer.Views" xmlns:viewmodels="clr-namespace:FlipTimer.ViewModels"
+             mc:Ignorable="d" Name="timerView"
              d:DesignHeight="348" d:DesignWidth="600"
              MinHeight="348" MinWidth="600" Background="Transparent">
     <Grid>
@@ -44,10 +44,10 @@
                 <RowDefinition Height="125*"/>
                 <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
-            <local:FlipValueView Grid.Column="1" Grid.Row="1"
-                                 FrontImage="{Binding FrontImage}"
-                                 BackImage="{Binding BackImage}"/>
-
+            <local:FlipValueView x:Name="thousandsDays" Grid.Column="1" Grid.Row="1"
+                                 DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorLevel=2, AncestorType=ContentControl}, Path=Content}"
+                                 FrontImageSource="{Binding ThousandsDaysFrontImageSource}"
+                                 BackImageSource="{Binding ThousandsDaysBackImageSource}"/>
         </Grid>
         <Grid Grid.Column="3" Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -56,12 +56,15 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="19*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="125*"/>
+                <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
-            <Image RenderOptions.BitmapScalingMode="HighQuality" Grid.Column="1" Grid.Row="1" 
-                   Source="/Resources/0.png" Stretch="Uniform"/>
+            <!--<TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Box}" FontSize="20" Foreground="Aqua"/>-->
+            <local:FlipValueView x:Name="hundredsDays" Grid.Column="1" Grid.Row="1"
+                                 DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorLevel=2, AncestorType=ContentControl}, Path=Content}"
+                                 FrontImageSource="{Binding HundredsDaysFrontImageSource}"
+                                 BackImageSource="{Binding HundredsDaysBackImageSource}"/>
         </Grid>
         <Grid Grid.Column="5" Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -74,8 +77,10 @@
                 <RowDefinition Height="125*"/>
                 <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
-            <Image RenderOptions.BitmapScalingMode="HighQuality" Grid.Column="1" Grid.Row="1" 
-                   Source="/Resources/0.png" Stretch="Uniform"/>
+            <local:FlipValueView x:Name="tensDays" Grid.Column="1" Grid.Row="1"
+                                 DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorLevel=2, AncestorType=ContentControl}, Path=Content}"
+                                 FrontImageSource="{Binding TensDaysFrontImageSource}"
+                                 BackImageSource="{Binding TensDaysBackImageSource}"/>
         </Grid>
         <Grid Grid.Column="7" Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -88,8 +93,10 @@
                 <RowDefinition Height="125*"/>
                 <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
-            <Image RenderOptions.BitmapScalingMode="HighQuality" Grid.Column="1" Grid.Row="1" 
-                   Source="/Resources/0.png" Stretch="Uniform"/>
+            <local:FlipValueView x:Name="onesDays" Grid.Column="1" Grid.Row="1"
+                                 DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorLevel=2, AncestorType=ContentControl}, Path=Content}"
+                                 FrontImageSource="{Binding OnesDaysFrontImageSource}"
+                                 BackImageSource="{Binding OnesDaysBackImageSource}"/>
         </Grid>
         <Grid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="9">
             <Grid.ColumnDefinitions>
@@ -126,22 +133,26 @@
                     <RowDefinition Height="19*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Image RenderOptions.BitmapScalingMode="HighQuality" Grid.Column="1" Grid.Row="1" 
-                       Source="/Resources/0.png" Margin="0 0 0.5 0" Stretch="Uniform" />
+                <local:FlipValueView x:Name="tensHours" Grid.Column="1" Grid.Row="1"
+                                 DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorLevel=2, AncestorType=ContentControl}, Path=Content}"
+                                 FrontImageSource="{Binding TensHoursFrontImageSource}"
+                                 BackImageSource="{Binding TensHoursBackImageSource}"/>
             </Grid>
             <Grid Grid.Column="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="11*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="0.8*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="19*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Image RenderOptions.BitmapScalingMode="HighQuality" Grid.Column="1" Grid.Row="1" 
-                       Source="/Resources/0.png" Margin="0.5 0 0 0" Stretch="Uniform"/>
+                <local:FlipValueView x:Name="onesHours" Grid.Column="1" Grid.Row="1"
+                                 DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorLevel=2, AncestorType=ContentControl}, Path=Content}"
+                                 FrontImageSource="{Binding OnesHoursFrontImageSource}"
+                                 BackImageSource="{Binding OnesHoursBackImageSource}"/>
             </Grid>
             <Grid Grid.Column="4">
                 <Grid.RowDefinitions>
@@ -163,22 +174,26 @@
                     <RowDefinition Height="19*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Image RenderOptions.BitmapScalingMode="HighQuality" Grid.Column="1" Grid.Row="1"
-                       Source="/Resources/0.png" Margin="0 0 0.5 0" Stretch="Uniform"/>
+                <local:FlipValueView x:Name="tensMinutes" Grid.Column="1" Grid.Row="1"
+                                 DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorLevel=2, AncestorType=ContentControl}, Path=Content}"
+                                 FrontImageSource="{Binding TensMinutesFrontImageSource}"
+                                 BackImageSource="{Binding TensMinutesBackImageSource}"/>
             </Grid>
             <Grid Grid.Column="7">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="11*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="0.8*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="19*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Image RenderOptions.BitmapScalingMode="HighQuality" Grid.Column="1" Grid.Row="1" 
-                       Source="/Resources/0.png" Margin="0.5 0 0 0" Stretch="Uniform"/>
+                <local:FlipValueView x:Name="onesMinutes" Grid.Column="1" Grid.Row="1"
+                                 DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorLevel=2, AncestorType=ContentControl}, Path=Content}"
+                                 FrontImageSource="{Binding OnesMinutesFrontImageSource}"
+                                 BackImageSource="{Binding OnesMinutesBackImageSource}"/>
             </Grid>
         </Grid>
     </Grid>

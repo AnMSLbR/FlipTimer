@@ -14,11 +14,17 @@ namespace FlipTimer.Commands
 
         private readonly NavigationStore _navigationStore;
         private readonly Func<TViewModel> _createViewModel;
+        private readonly ViewModelBase _viewModel;
 
         public NavigateCommand(NavigationStore navigationStore, Func<TViewModel> createViewModel)
         {
             _navigationStore = navigationStore;
             _createViewModel = createViewModel;
+        }
+        public NavigateCommand(NavigationStore navigationStore, ViewModelBase viewModel)
+        {
+            _navigationStore = navigationStore;
+            _createViewModel = () => (TViewModel)viewModel;
         }
 
         public override void Execute(object? parameter)

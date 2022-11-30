@@ -38,11 +38,12 @@ namespace FlipTimer.ViewModels
                 OnPropertyChanged("Hours");
             }
         }
-
-        public SettingViewModel(NavigationStore navigationStore, TimeSpanModel model)
+        private ViewModelBase _viewModel;
+        public SettingViewModel(NavigationStore navigationStore, TimeSpanModel model, ViewModelBase previousViewModel)
         {
-            _timeSpan = new TimeSpanModel();
-            NavigateCommand = new NavigateCommand<TimerViewModel>(navigationStore, () => new TimerViewModel(navigationStore, _timeSpan));
+            _timeSpan = model;
+            _viewModel = previousViewModel;
+            NavigateCommand = new NavigateCommand<TimerViewModel>(navigationStore, _viewModel);
             StartCommand = new StartCommand(_timeSpan);
         }
     }

@@ -24,7 +24,6 @@ namespace FlipTimer.Views
         public SettingView()
         {
             InitializeComponent();
-            //DataContext = new TimeSpanViewModel();
         }
     }
 }

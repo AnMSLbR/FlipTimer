@@ -4,10 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FlipTimer.Views"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" x:Name="uc"
              d:DesignHeight="125" d:DesignWidth="73">
     <Grid>
-        <Border x:Name="frontSide" RenderTransformOrigin="0.5,0.5"/>
-        <Border x:Name="backSide" RenderTransformOrigin="0.5,0.5"/>
+        <Border x:Name="frontBorder" RenderTransformOrigin="0.5,0.5"
+                >
+            <StackPanel x:Name="frontPanel"
+                        >
+                <Image x:Name="frontImage" RenderOptions.BitmapScalingMode="HighQuality"
+                       Stretch="Uniform" StretchDirection="Both"
+                       Height="{Binding Path=ActualHeight,ElementName=frontPanel}"
+                       Width="{Binding Path=ActualWidth,ElementName=frontPanel}"/>
+            </StackPanel>
+        </Border>
+        <Border x:Name="backBorder" RenderTransformOrigin="0.5,0.5"
+                >
+            <StackPanel x:Name="backPanel"
+                        >
+                <Image x:Name="backImage" RenderOptions.BitmapScalingMode="HighQuality"
+                       Stretch="Uniform" StretchDirection="Both"
+                       Height="{Binding Path=ActualHeight,ElementName=backPanel}"
+                       Width="{Binding Path=ActualWidth,ElementName=backPanel}"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>
