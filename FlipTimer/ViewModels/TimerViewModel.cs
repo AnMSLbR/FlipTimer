@@ -212,7 +212,20 @@ namespace FlipTimer.ViewModels
             _timeSpan.PropertyChanged += TimeSpan_TotalTimeSpanPropertyChanged;
             _imageSources = new ImageSources();
             NavigateCommand = new NavigateCommand<SettingViewModel>(navigationStore, () => new SettingViewModel(navigationStore, _timeSpan, this));
+            SetDefaultFlipValue();
+        }
 
+        private void TimeSpan_TotalTimeSpanPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(_timeSpan.TotalTimeSpan))
+            {
+                //Box = _timeSpan.TotalTimeSpan;
+                SetFlipValue();
+            }
+        }
+
+        private void SetDefaultFlipValue()
+        {
             _thousandsDaysFrontImageSource = _imageSources[0];
             _hundredsDaysFrontImageSource = _imageSources[0];
             _tensDaysFrontImageSource = _imageSources[0];
@@ -224,14 +237,6 @@ namespace FlipTimer.ViewModels
             _onesMinutesFrontImageSource = _imageSources[0];
         }
 
-        private void TimeSpan_TotalTimeSpanPropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(_timeSpan.TotalTimeSpan))
-            {
-                //Box = _timeSpan.TotalTimeSpan;
-                SetFlipValue();
-            }
-        }
         int onesMinutes = 0;
         int tensMinutes = 0;
         int onesHours = 0;
@@ -242,42 +247,38 @@ namespace FlipTimer.ViewModels
         int thousandsDays = 0;
         private void SetFlipValue()
         {
-            if ((Convert.ToInt32(_timeSpan.TotalTimeSpan.Days) / 1000 ) != thousandsDays)
+            SetOnesMinutes();
+            SetTensMinutes();
+            SetOnesHours();
+            SetTensHours();
+            SetOnesDays();
+            SetTensDays();
+            SetHundredsDays();
+            SetThousandsDays();
+        }
+
+        private void SetOnesMinutes()
+        {
+            if ((Convert.ToInt32(_timeSpan.TotalTimeSpan.Minutes) % 10) != onesMinutes)
             {
-                thousandsDays = Convert.ToInt32(_timeSpan.TotalTimeSpan.Days) / 1000;
-                ThousandsDaysFrontImageSource = (thousandsDays == 9) ? _imageSources[0] : _imageSources[thousandsDays + 1];
-                ThousandsDaysBackImageSource = _imageSources[thousandsDays];
+                onesMinutes = Convert.ToInt32(_timeSpan.TotalTimeSpan.Minutes) % 10;
+                OnesMinutesFrontImageSource = (onesMinutes == 9) ? _imageSources[0] : _imageSources[onesMinutes + 1];
+                OnesMinutesBackImageSource = _imageSources[onesMinutes];
             }
+        }
 
-
-            if ((Convert.ToInt32(_timeSpan.TotalTimeSpan.Days) / 100 % 10) != hundredsDays)
+        private void SetTensMinutes()
+        {
+            if ((Convert.ToInt32(_timeSpan.TotalTimeSpan.Minutes) / 10) != tensMinutes)
             {
-                hundredsDays = Convert.ToInt32(_timeSpan.TotalTimeSpan.Days) / 100 % 10;
-                HundredsDaysFrontImageSource = (hundredsDays == 9) ? _imageSources[0] : _imageSources[hundredsDays + 1];
-                HundredsDaysBackImageSource = _imageSources[hundredsDays];
+                tensMinutes = Convert.ToInt32(_timeSpan.TotalTimeSpan.Minutes) / 10;
+                TensMinutesFrontImageSource = (tensMinutes == 5) ? _imageSources[0] : _imageSources[tensMinutes + 1];
+                TensMinutesBackImageSource = _imageSources[tensMinutes];
             }
+        }
 
-            if ((Convert.ToInt32(_timeSpan.TotalTimeSpan.Days) / 10 % 10) != tensDays)
-            {
-                tensDays = Convert.ToInt32(_timeSpan.TotalTimeSpan.Days) / 10 % 10;
-                TensDaysFrontImageSource = (tensDays == 9) ? _imageSources[0] : _imageSources[tensDays + 1];
-                TensDaysBackImageSource = _imageSources[tensDays];
-            }
-
-            if ((Convert.ToInt32(_timeSpan.TotalTimeSpan.Days) % 10) != onesDays)
-            {
-                onesDays = Convert.ToInt32(_timeSpan.TotalTimeSpan.Days) % 10;
-                OnesDaysFrontImageSource = (onesDays == 9) ? _imageSources[0] : _imageSources[onesDays + 1];
-                OnesDaysBackImageSource = _imageSources[onesDays];
-            }
-
-            if ((Convert.ToInt32(_timeSpan.TotalTimeSpan.Hours) / 10) != tensHours)
-            {
-                tensHours = Convert.ToInt32(_timeSpan.TotalTimeSpan.Hours) / 10;
-                TensHoursFrontImageSource = (tensHours == 2) ? _imageSources[0] : _imageSources[tensHours + 1];
-                TensHoursBackImageSource = _imageSources[tensHours];
-            }
-
+        private void SetOnesHours()
+        {
             if ((Convert.ToInt32(_timeSpan.TotalTimeSpan.Hours) % 10) != onesHours)
             {
                 onesHours = Convert.ToInt32(_timeSpan.TotalTimeSpan.Hours) % 10;
@@ -287,19 +288,55 @@ namespace FlipTimer.ViewModels
                     OnesHoursFrontImageSource = (onesHours == 3) ? _imageSources[0] : _imageSources[onesHours + 1];
                 OnesHoursBackImageSource = _imageSources[onesHours];
             }
+        }
 
-            if ((Convert.ToInt32(_timeSpan.TotalTimeSpan.Minutes) / 10) != tensMinutes)
+        private void SetTensHours()
+        {
+            if ((Convert.ToInt32(_timeSpan.TotalTimeSpan.Hours) / 10) != tensHours)
             {
-                tensMinutes = Convert.ToInt32(_timeSpan.TotalTimeSpan.Minutes) / 10;
-                TensMinutesFrontImageSource = (tensMinutes == 5) ? _imageSources[0] : _imageSources[tensMinutes + 1];
-                TensMinutesBackImageSource = _imageSources[tensMinutes];
+                tensHours = Convert.ToInt32(_timeSpan.TotalTimeSpan.Hours) / 10;
+                TensHoursFrontImageSource = (tensHours == 2) ? _imageSources[0] : _imageSources[tensHours + 1];
+                TensHoursBackImageSource = _imageSources[tensHours];
             }
+        }
 
-            if ((Convert.ToInt32(_timeSpan.TotalTimeSpan.Minutes) % 10) != onesMinutes)
+        private void SetOnesDays()
+        {
+            if ((Convert.ToInt32(_timeSpan.TotalTimeSpan.Days) % 10) != onesDays)
             {
-                onesMinutes = Convert.ToInt32(_timeSpan.TotalTimeSpan.Minutes) % 10;
-                OnesMinutesFrontImageSource = (onesMinutes == 9) ? _imageSources[0] : _imageSources[onesMinutes + 1];
-                OnesMinutesBackImageSource = _imageSources[onesMinutes];
+                onesDays = Convert.ToInt32(_timeSpan.TotalTimeSpan.Days) % 10;
+                OnesDaysFrontImageSource = (onesDays == 9) ? _imageSources[0] : _imageSources[onesDays + 1];
+                OnesDaysBackImageSource = _imageSources[onesDays];
+            }
+        }
+
+        private void SetTensDays()
+        {
+            if ((Convert.ToInt32(_timeSpan.TotalTimeSpan.Days) / 10 % 10) != tensDays)
+            {
+                tensDays = Convert.ToInt32(_timeSpan.TotalTimeSpan.Days) / 10 % 10;
+                TensDaysFrontImageSource = (tensDays == 9) ? _imageSources[0] : _imageSources[tensDays + 1];
+                TensDaysBackImageSource = _imageSources[tensDays];
+            }
+        }
+
+        private void SetHundredsDays()
+        {
+            if ((Convert.ToInt32(_timeSpan.TotalTimeSpan.Days) / 100 % 10) != hundredsDays)
+            {
+                hundredsDays = Convert.ToInt32(_timeSpan.TotalTimeSpan.Days) / 100 % 10;
+                HundredsDaysFrontImageSource = (hundredsDays == 9) ? _imageSources[0] : _imageSources[hundredsDays + 1];
+                HundredsDaysBackImageSource = _imageSources[hundredsDays];
+            }
+        }
+
+        private void SetThousandsDays()
+        {
+            if ((Convert.ToInt32(_timeSpan.TotalTimeSpan.Days) / 1000) != thousandsDays)
+            {
+                thousandsDays = Convert.ToInt32(_timeSpan.TotalTimeSpan.Days) / 1000;
+                ThousandsDaysFrontImageSource = (thousandsDays == 9) ? _imageSources[0] : _imageSources[thousandsDays + 1];
+                ThousandsDaysBackImageSource = _imageSources[thousandsDays];
             }
         }
 

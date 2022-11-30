@@ -79,6 +79,8 @@ namespace FlipTimer.Models
             TotalTimeSpan = CalculateTotalTimeSpan(Days, Hours);
             if (TotalTimeSpan != TimeSpan.Zero)
                 timer.Start(TotalTimeSpan);
+            Days = default(TimeSpan);
+            Hours = default(TimeSpan);
         }
 
         private TimeSpan CalculateTotalTimeSpan(TimeSpan days, TimeSpan hours)
