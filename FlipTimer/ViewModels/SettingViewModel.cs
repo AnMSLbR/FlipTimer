@@ -12,7 +12,7 @@ namespace FlipTimer.ViewModels
 {
     internal class SettingViewModel : ViewModelBase
     {
-        public ICommand NavigateCommand { get; }
+
         public ICommand StartCommand { get; }
 
         private TimeSpanModel _timeSpan;

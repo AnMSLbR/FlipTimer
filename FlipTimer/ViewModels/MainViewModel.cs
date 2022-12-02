@@ -19,6 +19,7 @@ namespace FlipTimer.ViewModels
             _timeSpan = new TimeSpanModel();
             _navigationStore = new NavigationStore();
             _navigationStore.CurrentViewModel = new TimerViewModel(_navigationStore, _timeSpan);
+            NavigateCommand = CurrentViewModel.NavigateCommand;
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
         }
 

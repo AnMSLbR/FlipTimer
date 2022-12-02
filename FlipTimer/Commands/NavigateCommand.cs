@@ -14,7 +14,6 @@ namespace FlipTimer.Commands
 
         private readonly NavigationStore _navigationStore;
         private readonly Func<TViewModel> _createViewModel;
-        private readonly ViewModelBase _viewModel;
 
         public NavigateCommand(NavigationStore navigationStore, Func<TViewModel> createViewModel)
         {

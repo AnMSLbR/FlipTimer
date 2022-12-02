@@ -10,8 +10,12 @@ namespace FlipTimer.Services
 {
     internal class TimerService
     {
-        public event EventHandler<TimeSpan> TimeSpanChanged;
+        public event EventHandler<TimerEventArgs> TimeSpanChanged;
         private DispatcherTimer? _dispatcherTimer;
+        private DateTime? _startDate;
+
+        public DateTime? StartDate { get => _startDate; set => _startDate = value; }
+
         public void Start(TimeSpan timeSpan)
         {
             Stop();
@@ -20,10 +24,11 @@ namespace FlipTimer.Services
             {
                 timeSpan = timeSpan.Add(TimeSpan.FromMinutes(-1));
                 if (timeSpan == TimeSpan.Zero) _dispatcherTimer.Stop();
-                TimeSpanChanged?.Invoke(this, timeSpan);
+                TimeSpanChanged?.Invoke(this, new TimerEventArgs(timeSpan));
             }, Application.Current.Dispatcher);
-
+            
             _dispatcherTimer.Start();
+            StartDate = DateTime.Now;
         }
 
         public void Stop()

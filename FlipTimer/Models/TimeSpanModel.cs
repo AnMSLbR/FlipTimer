@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace FlipTimer.Models
 {
@@ -15,8 +16,8 @@ namespace FlipTimer.Models
         private TimeSpan _days;
         private TimeSpan _hours;
         private TimeSpan _totalTimeSpan;
-        private DateTime _startDate;
-        private DateTime _endDate;
+        private DateTime? _startDate;
+        private DateTime? _endDate;
         private TimerService timer;
 
         public TimeSpan Days 
@@ -49,7 +50,7 @@ namespace FlipTimer.Models
             }
         }
 
-        public DateTime StartDate
+        public DateTime? StartDate
         {
             get => _startDate;
             set
@@ -58,7 +59,7 @@ namespace FlipTimer.Models
                 OnPropertyChanged("StartDate");
             }
         }
-        public DateTime EndDate
+        public DateTime? EndDate
         {
             get => _endDate;
             set
@@ -79,6 +80,8 @@ namespace FlipTimer.Models
             TotalTimeSpan = CalculateTotalTimeSpan(Days, Hours);
             if (TotalTimeSpan != TimeSpan.Zero)
                 timer.Start(TotalTimeSpan);
+            StartDate = timer.StartDate;
+            CalculateEndDate();
             Days = default(TimeSpan);
             Hours = default(TimeSpan);
         }
@@ -87,9 +90,16 @@ namespace FlipTimer.Models
         {
             return days + hours;
         }
-        private void Timer_TimeSpanChangedEventHandler(object? sender, TimeSpan timeSpan)
+
+        private void Timer_TimeSpanChangedEventHandler(object? sender, TimerEventArgs eventArgs)
         {
-            TotalTimeSpan = timeSpan;
+            TotalTimeSpan = eventArgs.RemainingTimeSpan;
+        }
+
+        private void CalculateEndDate()
+        {
+            if(StartDate != null)
+                EndDate = ((DateTime)StartDate).Add(TotalTimeSpan);
         }
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")
