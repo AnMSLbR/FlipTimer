@@ -86,6 +86,12 @@ namespace FlipTimer.Models
             Hours = default(TimeSpan);
         }
 
+        public void StopTimer()
+        {
+            if (timer.IsRunning)
+                timer.Stop();
+        }
+
         private TimeSpan CalculateTotalTimeSpan(TimeSpan days, TimeSpan hours)
         {
             return days + hours;

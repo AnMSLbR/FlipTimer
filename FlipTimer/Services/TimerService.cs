@@ -16,6 +16,14 @@ namespace FlipTimer.Services
 
         public DateTime? StartDate { get => _startDate; set => _startDate = value; }
 
+        public bool IsRunning 
+        {
+            get
+            {
+                return _dispatcherTimer == null ? false : _dispatcherTimer.IsEnabled;
+            }
+        }
+
         public void Start(TimeSpan timeSpan)
         {
             Stop();

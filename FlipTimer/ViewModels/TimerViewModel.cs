@@ -19,7 +19,6 @@ namespace FlipTimer.ViewModels
 {
     internal class TimerViewModel : ViewModelBase
     {
-        //public ICommand NavigateCommand { get; }
         private ImageSources _imageSources;
         private TimeSpanModel _timeSpan;
 

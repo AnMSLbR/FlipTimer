@@ -101,9 +101,8 @@
             </Grid.RowDefinitions>
             <Menu Height="20" Background="Transparent" Grid.Row="0"
                   Foreground="#FFD0D0D0" Padding="3 0 0 0" FontSize="12" VerticalAlignment="Top">
-                <MenuItem x:Name="mi_New" Header="New" 
-                          Command="{Binding NavigateCommand}"/>
-                <MenuItem Header="Reset"/>
+                <MenuItem Header="New" Command="{Binding NavigateCommand}"/>
+                <MenuItem Header="Reset" Command="{Binding ResetCommand}"/>
             </Menu>
 
             <ContentControl x:Name="viewsContentControl" Grid.Row="1" Content="{Binding CurrentViewModel}">
