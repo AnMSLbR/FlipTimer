@@ -19,6 +19,8 @@ namespace FlipTimer.Commands
         {
             _timeSpan.StopTimer();
             _timeSpan.TotalTimeSpan = TimeSpan.Zero;
+            _timeSpan.StartDate = null;
+            _timeSpan.EndDate = null;
         }
     }
 }

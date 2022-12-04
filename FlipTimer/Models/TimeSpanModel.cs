@@ -7,6 +7,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace FlipTimer.Models
 {
@@ -20,6 +22,7 @@ namespace FlipTimer.Models
         private DateTime? _endDate;
         private TimerService timer;
 
+        [JsonIgnore]
         public TimeSpan Days 
         { 
             get => _days; 
@@ -30,6 +33,7 @@ namespace FlipTimer.Models
             }
         }
 
+        [JsonIgnore]
         public TimeSpan Hours
         {
             get => _hours;
@@ -40,6 +44,7 @@ namespace FlipTimer.Models
             }
         }
 
+        [JsonPropertyName("TimeSpan")]
         public TimeSpan TotalTimeSpan
         {
             get => _totalTimeSpan;

@@ -102,6 +102,7 @@
             <Menu Height="20" Background="Transparent" Grid.Row="0"
                   Foreground="#FFD0D0D0" Padding="3 0 0 0" FontSize="12" VerticalAlignment="Top">
                 <MenuItem Header="New" Command="{Binding NavigateCommand}"/>
+                <MenuItem Header="Save" Command="{Binding SaveCommand}"/>
                 <MenuItem Header="Reset" Command="{Binding ResetCommand}"/>
             </Menu>
 
