@@ -19,7 +19,10 @@ namespace FlipTimer.Services
         //}
         public TimeSpanModel Read(string fileName)
         {
-            throw new NotImplementedException();
+            using (FileStream fs = new FileStream(fileName, FileMode.Open))
+            {
+                return JsonSerializer.Deserialize<TimeSpanModel>(fs);
+            }
         }
 
         public async Task WriteAsync(TimeSpanModel timeSpan, string fileName)

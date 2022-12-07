@@ -78,17 +78,45 @@ namespace FlipTimer.Models
         {
             timer = new TimerService();
             timer.TimeSpanChanged += Timer_TimeSpanChangedEventHandler;
+            //if (EndDate != null)
+            //{
+            //    TotalTimeSpan = CalculateTotalTimeSpan((DateTime)EndDate);
+            //    if (TotalTimeSpan < TimeSpan.Zero)
+            //    {
+            //        MessageBox.Show("Time is over.");
+            //    }
+            //}
         }
 
-        public void StartTimer()
+        public void StartCount()
         {
             TotalTimeSpan = CalculateTotalTimeSpan(Days, Hours);
-            if (TotalTimeSpan != TimeSpan.Zero)
-                timer.Start(TotalTimeSpan);
+            StartTimer(TotalTimeSpan);
             StartDate = timer.StartDate;
             CalculateEndDate();
             Days = default(TimeSpan);
             Hours = default(TimeSpan);
+        }
+
+        public void StartCount(DateTime endDate)
+        {
+           // TotalTimeSpan = CalculateTotalTimeSpan(endDate);
+            if (endDate <= DateTime.Now)
+            {
+                TotalTimeSpan = TimeSpan.Zero;
+                MessageBox.Show("Time is over.");
+            }
+            else
+            {
+                TotalTimeSpan = endDate - DateTime.Now;
+                StartTimer(TotalTimeSpan);
+            }
+        }
+
+        public void StartTimer(TimeSpan timeSpan)
+        {
+            if (timeSpan > TimeSpan.Zero)
+                timer.Start(timeSpan);
         }
 
         public void StopTimer()
@@ -100,6 +128,11 @@ namespace FlipTimer.Models
         private TimeSpan CalculateTotalTimeSpan(TimeSpan days, TimeSpan hours)
         {
             return days + hours;
+        }
+
+        private TimeSpan CalculateTotalTimeSpan(DateTime endDate)
+        {
+            return endDate - DateTime.Now;
         }
 
         private void Timer_TimeSpanChangedEventHandler(object? sender, TimerEventArgs eventArgs)

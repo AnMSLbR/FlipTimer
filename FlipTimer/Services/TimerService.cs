@@ -28,11 +28,13 @@ namespace FlipTimer.Services
         {
             Stop();
 
-            _dispatcherTimer = new DispatcherTimer(new TimeSpan(0, 1, 0), DispatcherPriority.Normal, delegate
+            _dispatcherTimer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
-                timeSpan = timeSpan.Add(TimeSpan.FromMinutes(-1));
+                timeSpan = timeSpan.Add(TimeSpan.FromSeconds(-1));
                 if (timeSpan == TimeSpan.Zero) _dispatcherTimer.Stop();
-                TimeSpanChanged?.Invoke(this, new TimerEventArgs(timeSpan));
+                if (timeSpan.Seconds == 0)
+                    TimeSpanChanged?.Invoke(this, new TimerEventArgs(timeSpan));
+            
             }, Application.Current.Dispatcher);
             
             _dispatcherTimer.Start();

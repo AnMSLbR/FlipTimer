@@ -212,6 +212,11 @@ namespace FlipTimer.ViewModels
             _imageSources = new ImageSources();
             NavigateCommand = new NavigateCommand<SettingViewModel>(navigationStore, () => new SettingViewModel(navigationStore, _timeSpan, this));
             SetDefaultFlipValue();
+            if (_timeSpan.EndDate != null)
+            {
+                _timeSpan.StartCount((DateTime)_timeSpan.EndDate);
+                SetFlipValue();
+            }
         }
 
         private void TimeSpan_TotalTimeSpanPropertyChanged(object? sender, PropertyChangedEventArgs e)

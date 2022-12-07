@@ -5,8 +5,10 @@ using FlipTimer.Services;
 using FlipTimer.Stores;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -24,12 +26,14 @@ namespace FlipTimer.ViewModels
 
         public MainViewModel()
         {
-            _timeSpan = new TimeSpanModel();
+            _dateStorage = new DateStorageJson();
+            _timeSpan = File.Exists(_fileName) ? LoadTimeSpan() : new TimeSpanModel();
+
             _navigationStore = new NavigationStore();
             _navigationStore.CurrentViewModel = new TimerViewModel(_navigationStore, _timeSpan);
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
 
-            _dateStorage = new DateStorageJson();
+
             SaveCommand = new SaveCommand(_timeSpan, _dateStorage, _fileName);
 
             NavigateCommand = CurrentViewModel.NavigateCommand;
@@ -37,9 +41,9 @@ namespace FlipTimer.ViewModels
 
         }
 
-        private void LoadTimeSpanFromFile()
+        private TimeSpanModel LoadTimeSpan()
         {
-            _timeSpan = _dateStorage.Read(_fileName);
+            return _dateStorage.Read(_fileName);
         }
 
         private void OnCurrentViewModelChanged()
