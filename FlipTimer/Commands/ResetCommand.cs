@@ -17,10 +17,7 @@ namespace FlipTimer.Commands
         }
         public override void Execute(object? parameter)
         {
-            _timeSpan.StopTimer();
-            _timeSpan.TotalTimeSpan = TimeSpan.Zero;
-            _timeSpan.StartDate = null;
-            _timeSpan.EndDate = null;
+            _timeSpan.ResetTimer();
         }
     }
 }

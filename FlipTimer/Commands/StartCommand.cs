@@ -18,6 +18,7 @@ namespace FlipTimer.Commands
 
         public override void Execute(object? parameter)
         {
+            _timeSpan.ResetTimer();
             _timeSpan.StartCount();
         }
     }

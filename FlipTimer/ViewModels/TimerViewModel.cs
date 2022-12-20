@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -214,7 +215,7 @@ namespace FlipTimer.ViewModels
             SetDefaultFlipValue();
             if (_timeSpan.EndDate != null)
             {
-                _timeSpan.StartCount((DateTime)_timeSpan.EndDate);
+                _timeSpan.StartCount();
                 SetFlipValue();
             }
         }
@@ -225,6 +226,11 @@ namespace FlipTimer.ViewModels
             {
                 //Box = _timeSpan.TotalTimeSpan;
                 SetFlipValue();
+                if (_timeSpan.TotalTimeSpan == TimeSpan.Zero && _timeSpan.EndDate != null)
+                {
+                    MessageBox.Show($"Time is over at {_timeSpan.EndDate}", " ", MessageBoxButton.OK, MessageBoxImage.None, 
+                        MessageBoxResult.None, MessageBoxOptions.ServiceNotification);
+                }
             }
         }
 

@@ -33,7 +33,6 @@ namespace FlipTimer.ViewModels
             _navigationStore.CurrentViewModel = new TimerViewModel(_navigationStore, _timeSpan);
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
 
-
             SaveCommand = new SaveCommand(_timeSpan, _dateStorage, _fileName);
 
             NavigateCommand = CurrentViewModel.NavigateCommand;

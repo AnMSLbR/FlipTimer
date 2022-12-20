@@ -78,39 +78,29 @@ namespace FlipTimer.Models
         {
             timer = new TimerService();
             timer.TimeSpanChanged += Timer_TimeSpanChangedEventHandler;
-            //if (EndDate != null)
-            //{
-            //    TotalTimeSpan = CalculateTotalTimeSpan((DateTime)EndDate);
-            //    if (TotalTimeSpan < TimeSpan.Zero)
-            //    {
-            //        MessageBox.Show("Time is over.");
-            //    }
-            //}
         }
 
         public void StartCount()
         {
-            TotalTimeSpan = CalculateTotalTimeSpan(Days, Hours);
-            StartTimer(TotalTimeSpan);
-            StartDate = timer.StartDate;
-            CalculateEndDate();
-            Days = default(TimeSpan);
-            Hours = default(TimeSpan);
-        }
-
-        public void StartCount(DateTime endDate)
-        {
-           // TotalTimeSpan = CalculateTotalTimeSpan(endDate);
-            if (endDate <= DateTime.Now)
+            if (EndDate == null)
             {
-                TotalTimeSpan = TimeSpan.Zero;
-                MessageBox.Show("Time is over.");
+                TotalTimeSpan = CalculateTotalTimeSpan(Days, Hours);
+                StartTimer(TotalTimeSpan);
+                StartDate = timer.StartDate;
+                CalculateEndDate();
+            }
+            else if (EndDate <= DateTime.Now)
+            {
+                MessageBox.Show($"Time is over at {EndDate}");
+                ResetTimer();
             }
             else
             {
-                TotalTimeSpan = endDate - DateTime.Now;
+                TotalTimeSpan = (DateTime)EndDate! - DateTime.Now;
                 StartTimer(TotalTimeSpan);
             }
+            Days = default(TimeSpan);
+            Hours = default(TimeSpan);
         }
 
         public void StartTimer(TimeSpan timeSpan)
@@ -123,6 +113,14 @@ namespace FlipTimer.Models
         {
             if (timer.IsRunning)
                 timer.Stop();
+        }
+
+        public void ResetTimer()
+        {
+            StopTimer();
+            StartDate = default(DateTime?);
+            EndDate = default(DateTime?);
+            TotalTimeSpan = TimeSpan.Zero;
         }
 
         private TimeSpan CalculateTotalTimeSpan(TimeSpan days, TimeSpan hours)
