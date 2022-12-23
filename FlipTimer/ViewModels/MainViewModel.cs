@@ -36,7 +36,7 @@ namespace FlipTimer.ViewModels
             SaveCommand = new SaveCommand(_timeSpan, _dateStorage, _fileName);
 
             NavigateCommand = CurrentViewModel.NavigateCommand;
-            ResetCommand = new ResetCommand(_timeSpan);
+            ResetCommand = new ResetCommand(_timeSpan, _dateStorage, _fileName);
 
         }
 

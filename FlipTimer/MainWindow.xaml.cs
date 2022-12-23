@@ -65,5 +65,12 @@ namespace FlipTimer
         {
             SystemCommands.MinimizeWindow(this);
         }
+
+        private void winMain_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var mainViewModel = (MainViewModel)DataContext;
+            if(mainViewModel.SaveCommand.CanExecute(null))
+                mainViewModel.SaveCommand.Execute(null);
+        }
     }
 }

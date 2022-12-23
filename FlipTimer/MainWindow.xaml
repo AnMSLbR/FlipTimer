@@ -13,7 +13,7 @@
         Icon="/Resources/icon.png" WindowStyle="None" 
         AllowsTransparency="True" ResizeMode="CanResizeWithGrip"
         MaxHeight="{x:Static SystemParameters.MaximizedPrimaryScreenHeight}"
-        MaxWidth="{x:Static SystemParameters.MaximizedPrimaryScreenWidth}">
+        MaxWidth="{x:Static SystemParameters.MaximizedPrimaryScreenWidth}" Closing="winMain_Closing">
 
     <Window.Resources>
         <Style x:Key="WindowBarButton" TargetType="{x:Type Button}">
