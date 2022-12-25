@@ -16,9 +16,9 @@ namespace FlipTimer.ViewModels
         public ICommand StartCommand { get; }
 
         private TimeSpanModel _timeSpan;
-        private TimeSpan _days;
-        private TimeSpan _hours;
-        public TimeSpan Days
+        private TimeSpan? _days;
+        private TimeSpan? _hours;
+        public TimeSpan? Days
         {
             get => _days;
             set
@@ -28,7 +28,7 @@ namespace FlipTimer.ViewModels
                 OnPropertyChanged("Days");
             }
         }
-        public TimeSpan Hours
+        public TimeSpan? Hours
         {
             get => _hours;
             set

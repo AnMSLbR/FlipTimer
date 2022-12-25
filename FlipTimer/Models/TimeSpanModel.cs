@@ -15,15 +15,15 @@ namespace FlipTimer.Models
     internal class TimeSpanModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
-        private TimeSpan _days;
-        private TimeSpan _hours;
+        private TimeSpan? _days;
+        private TimeSpan? _hours;
         private TimeSpan _totalTimeSpan;
         private DateTime? _startDate;
         private DateTime? _endDate;
         private TimerService timer;
 
         [JsonIgnore]
-        public TimeSpan Days 
+        public TimeSpan? Days 
         { 
             get => _days; 
             set
@@ -34,7 +34,7 @@ namespace FlipTimer.Models
         }
 
         [JsonIgnore]
-        public TimeSpan Hours
+        public TimeSpan? Hours
         {
             get => _hours;
             set
@@ -96,7 +96,7 @@ namespace FlipTimer.Models
             }
             else
             {
-                TotalTimeSpan = (DateTime)EndDate! - DateTime.Now;
+                TotalTimeSpan = CalculateTotalTimeSpan((DateTime)EndDate);
                 StartTimer(TotalTimeSpan);
             }
             Days = default(TimeSpan);
@@ -123,9 +123,9 @@ namespace FlipTimer.Models
             TotalTimeSpan = TimeSpan.Zero;
         }
 
-        private TimeSpan CalculateTotalTimeSpan(TimeSpan days, TimeSpan hours)
+        private TimeSpan CalculateTotalTimeSpan(TimeSpan? days, TimeSpan? hours)
         {
-            return days + hours;
+            return days ?? TimeSpan.Zero  + hours ?? TimeSpan.Zero;
         }
 
         private TimeSpan CalculateTotalTimeSpan(DateTime endDate)
