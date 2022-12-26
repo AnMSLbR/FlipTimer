@@ -16,9 +16,10 @@ namespace FlipTimer.Commands
             this._timeSpan = timeSpan;
         }
 
-        public override void Execute(object? parameter)
+        public override void Execute(object? isChecked)
         {
-            _timeSpan.ResetTimer();
+            if ((bool)isChecked!)
+                _timeSpan.ResetTimer();
             _timeSpan.StartCount();
         }
     }

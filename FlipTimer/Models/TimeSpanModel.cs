@@ -98,9 +98,10 @@ namespace FlipTimer.Models
             {
                 TotalTimeSpan = CalculateTotalTimeSpan((DateTime)EndDate);
                 StartTimer(TotalTimeSpan);
+                StartDate = timer.StartDate;
             }
-            Days = default(TimeSpan);
-            Hours = default(TimeSpan);
+            Days = default(TimeSpan?);
+            Hours = default(TimeSpan?);
         }
 
         public void StartTimer(TimeSpan timeSpan)
@@ -125,12 +126,13 @@ namespace FlipTimer.Models
 
         private TimeSpan CalculateTotalTimeSpan(TimeSpan? days, TimeSpan? hours)
         {
-            return days ?? TimeSpan.Zero  + hours ?? TimeSpan.Zero;
+            return (days ?? TimeSpan.Zero) + (hours ?? TimeSpan.Zero);
         }
 
         private TimeSpan CalculateTotalTimeSpan(DateTime endDate)
         {
-            return endDate - DateTime.Now;
+            var res = endDate - DateTime.Now;
+            return res;
         }
 
         private void Timer_TimeSpanChangedEventHandler(object? sender, TimerEventArgs eventArgs)

@@ -205,10 +205,7 @@ namespace FlipTimer.ViewModels
             if (_timeSpan.EndDate != null)
             {
                 _timeSpan.StartCount();
-                if (_timeSpan.TotalTimeSpan.Seconds != 0)
-                    SetFlipValue(_timeSpan.TotalTimeSpan + TimeSpan.FromMinutes(1));
-                else
-                    SetFlipValue(_timeSpan.TotalTimeSpan);
+                SetFlipValue(SelectTotalTimeSpan());
             }
         }
 
@@ -216,7 +213,7 @@ namespace FlipTimer.ViewModels
         {
             if (e.PropertyName == nameof(_timeSpan.TotalTimeSpan))
             {
-                SetFlipValue(_timeSpan.TotalTimeSpan);
+                SetFlipValue(SelectTotalTimeSpan());
                 if (_timeSpan.TotalTimeSpan <= TimeSpan.Zero && _timeSpan.EndDate != null)
                 {
                     MessageBox.Show($"Time is over at {_timeSpan.EndDate}", " ", MessageBoxButton.OK, MessageBoxImage.None, 
@@ -238,14 +235,7 @@ namespace FlipTimer.ViewModels
             _onesMinutesFrontImageSource = _imageSources[0];
         }
 
-        int onesMinutes = 0;
-        int tensMinutes = 0;
-        int onesHours = 0;
-        int tensHours = 0;
-        int onesDays = 0;
-        int tensDays = 0;
-        int hundredsDays = 0;
-        int thousandsDays = 0;
+        int onesMinutes, tensMinutes, onesHours, tensHours, onesDays, tensDays, hundredsDays, thousandsDays = 0;
         private void SetFlipValue(TimeSpan timeSpan)
         {
             SetOnesMinutes(timeSpan.Minutes);
@@ -283,7 +273,7 @@ namespace FlipTimer.ViewModels
             if (hours % 10 != onesHours)
             {
                 onesHours = hours % 10;
-                if (hours / 10 == 0)
+                if (hours / 10 < 2)
                     OnesHoursFrontImageSource = (onesHours == 9) ? _imageSources[0] : _imageSources[onesHours + 1];
                 else
                     OnesHoursFrontImageSource = (onesHours == 3) ? _imageSources[0] : _imageSources[onesHours + 1];
@@ -339,6 +329,14 @@ namespace FlipTimer.ViewModels
                 ThousandsDaysFrontImageSource = (thousandsDays == 9) ? _imageSources[0] : _imageSources[thousandsDays + 1];
                 ThousandsDaysBackImageSource = _imageSources[thousandsDays];
             }
+        }
+
+        private TimeSpan SelectTotalTimeSpan()
+        {
+            if (_timeSpan.TotalTimeSpan.Seconds != 0)
+                return _timeSpan.TotalTimeSpan + TimeSpan.FromMinutes(1);
+            else
+                return _timeSpan.TotalTimeSpan;
         }
 
     }
