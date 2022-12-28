@@ -214,7 +214,7 @@ namespace FlipTimer.ViewModels
             if (e.PropertyName == nameof(_timeSpan.TotalTimeSpan))
             {
                 SetFlipValue(SelectTotalTimeSpan());
-                if (_timeSpan.TotalTimeSpan <= TimeSpan.Zero && _timeSpan.EndDate != null)
+                if (_timeSpan.TotalTimeSpan <= TimeSpan.Zero && _timeSpan.IsTimerFinished)
                 {
                     MessageBox.Show($"Time is over at {_timeSpan.EndDate}", " ", MessageBoxButton.OK, MessageBoxImage.None, 
                         MessageBoxResult.None, MessageBoxOptions.ServiceNotification);

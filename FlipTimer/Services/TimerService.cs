@@ -31,7 +31,7 @@ namespace FlipTimer.Services
             _dispatcherTimer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
                 timeSpan = timeSpan.Add(TimeSpan.FromSeconds(-1));
-                if (timeSpan == TimeSpan.Zero) _dispatcherTimer.Stop();
+                if (timeSpan <= TimeSpan.Zero) _dispatcherTimer.Stop();
                 if (timeSpan.Seconds == 0)
                     TimeSpanChanged?.Invoke(this, new TimerEventArgs(timeSpan));
             

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace FlipTimer.ViewModels
@@ -28,16 +29,18 @@ namespace FlipTimer.ViewModels
         {
             _dateStorage = new DateStorageJson();
             _timeSpan = File.Exists(_fileName) ? LoadTimeSpan() : new TimeSpanModel();
-
+            _timeSpan.TimeExpired += TimeSpan_TimeExpiredEventHandler;
             _navigationStore = new NavigationStore();
             _navigationStore.CurrentViewModel = new TimerViewModel(_navigationStore, _timeSpan);
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
-
             SaveCommand = new SaveCommand(_timeSpan, _dateStorage, _fileName);
-
             NavigateCommand = CurrentViewModel.NavigateCommand;
-            ResetCommand = new ResetCommand(_timeSpan, _dateStorage, _fileName);
+            ResetCommand = new ResetCommand(_timeSpan);
+        }
 
+        private void TimeSpan_TimeExpiredEventHandler(object? sender, EventArgs e)
+        {
+            _dateStorage.WriteAsync(_timeSpan, _fileName);
         }
 
         private TimeSpanModel LoadTimeSpan()

@@ -22,21 +22,17 @@ namespace FlipTimer
 {
     public partial class MainWindow : Window
     {
-        //NavigationStore _navigationStore;
         public MainWindow()
         {
             InitializeComponent();
-            //_navigationStore = new NavigationStore();
-            //_navigationStore.CurrentViewModel = new TimerViewModel(_navigationStore);
-            //DataContext = new MainViewModel(_navigationStore);
         }
 
         //--------------------------------------------------------------------------
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ClickCount == 2)
-                MaximizeMainWindow();
-            else
+            //if (e.ClickCount == 2)
+            //    MaximizeMainWindow();
+            //else
                 this.DragMove();
         }
 

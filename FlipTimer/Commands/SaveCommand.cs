@@ -23,7 +23,8 @@ namespace FlipTimer.Commands
 
         public override void Execute(object? parameter)
         {
-            _dateStorage.WriteAsync(_timeSpanModel, _fileName);
+            if(_timeSpanModel.IsTimerRunning)
+                _dateStorage.WriteAsync(_timeSpanModel, _fileName);
         }
     }
 }

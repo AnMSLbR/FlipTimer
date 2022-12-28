@@ -15,12 +15,18 @@ namespace FlipTimer.Models
     internal class TimeSpanModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+        public event EventHandler TimeExpired;
         private TimeSpan? _days;
         private TimeSpan? _hours;
         private TimeSpan _totalTimeSpan;
         private DateTime? _startDate;
         private DateTime? _endDate;
         private TimerService timer;
+
+        [JsonIgnore]
+        public bool IsTimerRunning { get => timer.IsRunning;}
+        [JsonIgnore]
+        public bool IsTimerFinished { get; private set; }
 
         [JsonIgnore]
         public TimeSpan? Days 
@@ -91,8 +97,7 @@ namespace FlipTimer.Models
             }
             else if (EndDate <= DateTime.Now)
             {
-                MessageBox.Show($"Time is over at {EndDate}");
-                ResetTimer();
+                ResetTimeSpan(true);
             }
             else
             {
@@ -110,18 +115,20 @@ namespace FlipTimer.Models
                 timer.Start(timeSpan);
         }
 
-        public void StopTimer()
+        private void StopTimer()
         {
-            if (timer.IsRunning)
+            if (IsTimerRunning)
                 timer.Stop();
         }
 
-        public void ResetTimer()
+        public void ResetTimeSpan(bool isFinished)
         {
             StopTimer();
+            IsTimerFinished = isFinished;
+            TotalTimeSpan = TimeSpan.Zero;
             StartDate = default(DateTime?);
             EndDate = default(DateTime?);
-            TotalTimeSpan = TimeSpan.Zero;
+            TimeExpired?.Invoke(this, new EventArgs());
         }
 
         private TimeSpan CalculateTotalTimeSpan(TimeSpan? days, TimeSpan? hours)
@@ -131,13 +138,15 @@ namespace FlipTimer.Models
 
         private TimeSpan CalculateTotalTimeSpan(DateTime endDate)
         {
-            var res = endDate - DateTime.Now;
-            return res;
+            return endDate - DateTime.Now;
         }
 
         private void Timer_TimeSpanChangedEventHandler(object? sender, TimerEventArgs eventArgs)
         {
-            TotalTimeSpan = eventArgs.RemainingTimeSpan;
+            if (eventArgs.RemainingTimeSpan <= TimeSpan.Zero)
+                ResetTimeSpan(true);
+            else
+                TotalTimeSpan = eventArgs.RemainingTimeSpan;
         }
 
         private void CalculateEndDate()

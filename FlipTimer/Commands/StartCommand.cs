@@ -19,7 +19,7 @@ namespace FlipTimer.Commands
         public override void Execute(object? isChecked)
         {
             if ((bool)isChecked!)
-                _timeSpan.ResetTimer();
+                _timeSpan.ResetTimeSpan(false);
             _timeSpan.StartCount();
         }
     }

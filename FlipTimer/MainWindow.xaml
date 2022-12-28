@@ -11,7 +11,7 @@
         mc:Ignorable="d"
         Title="FlipTimer" MinHeight="400" MinWidth="600" Height="400" Width="600"
         Icon="/Resources/icon.png" WindowStyle="None" 
-        AllowsTransparency="True" ResizeMode="CanResizeWithGrip"
+        AllowsTransparency="True" ResizeMode="CanMinimize"
         MaxHeight="{x:Static SystemParameters.MaximizedPrimaryScreenHeight}"
         MaxWidth="{x:Static SystemParameters.MaximizedPrimaryScreenWidth}" Closing="winMain_Closing">
 
@@ -87,7 +87,7 @@
                     <Button Content="—" Style="{StaticResource WindowBarButton}"
                             Command="{x:Static SystemCommands.MinimizeWindowCommand}"/>
                     <Button Content="▢" Style="{StaticResource WindowBarButton}"
-                            Command="{x:Static SystemCommands.MaximizeWindowCommand}"/>
+                            Command="{x:Static SystemCommands.MaximizeWindowCommand}" IsEnabled="False" Opacity="0.25"/>
                     <Button Content="✕" Style="{StaticResource WindowBarButton}"
                             Command="{x:Static SystemCommands.CloseWindowCommand}"/>
                 </StackPanel>
