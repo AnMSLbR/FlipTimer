@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Media;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -216,6 +217,7 @@ namespace FlipTimer.ViewModels
                 SetFlipValue(SelectTotalTimeSpan());
                 if (_timeSpan.TotalTimeSpan <= TimeSpan.Zero && _timeSpan.IsTimerFinished)
                 {
+                    SystemSounds.Beep.Play();
                     MessageBox.Show($"Time is over at {_timeSpan.EndDate}", " ", MessageBoxButton.OK, MessageBoxImage.None, 
                         MessageBoxResult.None, MessageBoxOptions.ServiceNotification);
                 }

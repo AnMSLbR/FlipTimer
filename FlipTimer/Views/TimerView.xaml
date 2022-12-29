@@ -60,7 +60,6 @@
                 <RowDefinition Height="125*"/>
                 <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
-            <!--<TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Box}" FontSize="20" Foreground="Aqua"/>-->
             <local:FlipValueView x:Name="hundredsDays" Grid.Column="1" Grid.Row="1"
                                  DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorLevel=2, AncestorType=ContentControl}, Path=Content}"
                                  FrontImageSource="{Binding HundredsDaysFrontImageSource}"

@@ -27,7 +27,6 @@ namespace FlipTimer
             InitializeComponent();
         }
 
-        //--------------------------------------------------------------------------
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             //if (e.ClickCount == 2)
@@ -43,7 +42,6 @@ namespace FlipTimer
             else
                 Application.Current.MainWindow.WindowState = WindowState.Normal;
         }
-        //--------------------------------------------------------------------------
         private void CommandBinding_Executed_CloseWindow(object sender, ExecutedRoutedEventArgs e)
         {
             SystemCommands.CloseWindow(this);
