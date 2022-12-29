@@ -13,3 +13,8 @@ The countdown time can be set in two ways:
 + Set a specific date, the time span until which will be calculated (Date format: *MM:dd:yyyy + HH:mm*).
 
 ![Settings](https://cdn.discordapp.com/attachments/828381311831375914/1057877531526696960/Settings.PNG)
+
+## Dependencies
+Syncfusion ([NuGet](https://www.nuget.org/packages/Syncfusion.SfInput.WPF))
+
+## Downloads
