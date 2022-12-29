@@ -18,3 +18,4 @@ The countdown time can be set in two ways:
 Syncfusion ([NuGet](https://www.nuget.org/packages/Syncfusion.SfInput.WPF))
 
 ## Downloads
+App on Windows are available in the [Releases](https://github.com/AnMSLbR/FlipTimer/releases) section.
