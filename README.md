@@ -14,6 +14,8 @@ The countdown time can be set in two ways:
 
 ![Settings](https://cdn.discordapp.com/attachments/828381311831375914/1057877531526696960/Settings.PNG)
 
+The end date of the timer is stored in the json-file.
+
 ## Dependencies
 Syncfusion ([NuGet](https://www.nuget.org/packages/Syncfusion.SfInput.WPF))
 
